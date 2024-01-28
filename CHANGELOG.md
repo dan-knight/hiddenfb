@@ -7,4 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Basic CI/CD workflow which builds, runs tests, and checks code style/imports.
+
 ## [0.0.1] - 2024-01-28
