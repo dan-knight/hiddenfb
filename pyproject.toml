@@ -1,0 +1,18 @@
+[project]
+name = "hiddenfb"
+version = "0.0.1"
+authors = [
+  { name="Dan Knight", email="dan@danknight.dev" },
+]
+description = "Advanced football analytics for professional sports analysts and top-level coaches."
+readme = "README.md"
+requires-python = ">=3.11"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+Homepage = "https://github.com/dan-knight/hiddenfb"
+Issues = "https://github.com/dan-knight/hiddenfb/issues"
