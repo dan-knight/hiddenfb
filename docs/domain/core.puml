@@ -1,0 +1,51 @@
+@startuml core
+skinparam PackageStyle rectangle
+skinparam Linetype ortho
+skinparam shadowing false
+
+class Player {
+    player_id: int
+    team: Team
+}
+
+class Team {
+    team_id: int
+    primary_name: str
+}
+
+class Match {
+    match_id: int
+}
+
+class MatchMoment {
+    match: Match | None
+    frame: float
+}
+
+package "" as PlayerMomentAggregate {
+    class PlayerMoment {
+        player: Player
+        match_moment: MatchMoment
+        action: PlayerAction | None
+    }
+
+    PlayerMoment *.r... PlayerAction
+
+    abstract PlayerAction
+
+    class Shot {
+        result: ShotResult
+    }
+    class Pass
+
+    PlayerAction <|-d- Shot
+    PlayerAction <|-d- Pass
+}
+
+MatchMoment *.u. Match
+PlayerMoment *-r- MatchMoment
+PlayerMoment *-u- Player
+Player *-r- Team
+Match -[hidden]right- Player
+
+@enduml
