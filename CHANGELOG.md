@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Domain models for basic tracking and event data.
+
 ## [0.0.1] - 2024-01-28
 
 ### Added
