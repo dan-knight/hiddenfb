@@ -21,6 +21,7 @@ def test__flatten__handles_list_of_lists():
 
     assert result == values
 
+
 def test__flatten__handles_mixed_elements_and_lists():
     values: List[int] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 

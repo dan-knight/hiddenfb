@@ -1,5 +1,5 @@
-from abc import ABC, abstractmethod
 import csv
+from abc import ABC, abstractmethod
 from pathlib import Path
 from typing import Any, Dict, Iterator, List
 
@@ -13,7 +13,7 @@ class BaseCSVFileLoader(FileLoader, ABC):
             data = csv.reader(f)
 
         header_columns: List[str] = self._parse_header(data)
-        
+
         return flatten([self._parse_row(row, header=header_columns) for row in data])
 
     def _parse_header(self, reader: Iterator[Any]) -> List[str]:
@@ -21,11 +21,8 @@ class BaseCSVFileLoader(FileLoader, ABC):
 
     @abstractmethod
     def _parse_row(
-        self,
-        row: List[str],
-        header: List[str]
-    ) -> Dict[str, Any] | List[Dict[str, Any]]:
-        ...
+        self, row: List[str], header: List[str]
+    ) -> Dict[str, Any] | List[Dict[str, Any]]: ...
 
 
 class CSVFileLoader(BaseCSVFileLoader):
@@ -35,5 +32,4 @@ class CSVFileLoader(BaseCSVFileLoader):
 
 class WideCSVFileLoader(BaseCSVFileLoader, ABC):
     @abstractmethod
-    def _parse_row(self, row: List[str], header: List[str]) -> List[Dict[str, Any]]:
-        ...
+    def _parse_row(self, row: List[str], header: List[str]) -> List[Dict[str, Any]]: ...
