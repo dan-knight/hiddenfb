@@ -12,9 +12,9 @@ class BaseCSVFileLoader(FileLoader, ABC):
         with self._load_file(path, file_type="csv") as f:
             data = csv.reader(f)
 
-        header_columns: List[str] = self._parse_header(data)
-
-        return flatten([self._parse_row(row, header=header_columns) for row in data])
+            header_columns: List[str] = self._parse_header(data)
+    
+            return flatten([self._parse_row(row, header=header_columns) for row in data])
 
     def _parse_header(self, reader: Iterator[Any]) -> List[str]:
         return next(reader)
