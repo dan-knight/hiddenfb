@@ -1,4 +1,5 @@
 from typing import Any, Dict, Iterator, List
+
 from hiddenfb.utility.file_loader.csv import WideCSVFileLoader
 
 
@@ -7,7 +8,7 @@ class MetricaTrackingLoader(WideCSVFileLoader):
         rows_to_skip: int = 2
         for _ in range(rows_to_skip):
             next(reader)
-        
+
         return next(reader)
 
     def _parse_row(self, row: List[str], header: List[str]) -> List[Dict[str, Any]]:
@@ -22,7 +23,7 @@ class MetricaTrackingLoader(WideCSVFileLoader):
                 "frame": frame,
                 "time": time_seconds,
                 "x": row[i],
-                "y": row[i + 1]
-            } for i in range(3, len(row) - 1, 2)
+                "y": row[i + 1],
+            }
+            for i in range(3, len(row) - 1, 2)
         ]
-    
