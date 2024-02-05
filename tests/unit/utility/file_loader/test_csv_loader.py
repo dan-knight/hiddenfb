@@ -5,7 +5,7 @@ from unittest.mock import mock_open, patch
 from hiddenfb.utility.file_loader.csv import CSVFileLoader
 
 
-def test__json_loader__returns_valid_data():
+def test__csv_loader__returns_valid_data():
     header: List[str] = ["ID", "test"]
 
     data: List[Dict[str, str]] = [
