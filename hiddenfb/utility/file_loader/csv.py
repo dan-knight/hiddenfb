@@ -13,8 +13,10 @@ class BaseCSVFileLoader(FileLoader, ABC):
             data = csv.reader(f)
 
             header_columns: List[str] = self._parse_header(data)
-    
-            return flatten([self._parse_row(row, header=header_columns) for row in data])
+
+            return flatten(
+                [self._parse_row(row, header=header_columns) for row in data]
+            )
 
     def _parse_header(self, reader: Iterator[Any]) -> List[str]:
         return next(reader)
