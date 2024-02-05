@@ -4,11 +4,10 @@ from pathlib import Path
 from typing import Any, Dict, List, Tuple
 from unittest.mock import mock_open, patch
 
-from hiddenfb.database.ETL.metrica.file_loader.tracking import \
-    MetricaTrackingLoader
+from hiddenfb.database.ETL.metrica.file_loader.tracking import MetricaTrackingLoader
 
 
-def test__metrica_tracking_csv_loader__loads_valid_format():
+def test__metrica_tracking_loader__loads_valid_format():
     player_ids: List[int] = [1, 2, 3, 5]
 
     source_header: List[str] = ["Period", "Frame", "Time [s]"]
