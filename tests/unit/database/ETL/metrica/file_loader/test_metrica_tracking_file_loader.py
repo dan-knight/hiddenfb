@@ -4,7 +4,11 @@ from pathlib import Path
 from typing import Any, Dict, List, Tuple
 from unittest.mock import mock_open, patch
 
-from hiddenfb.database.ETL.metrica.file_loader.tracking import MetricaTrackingLoader
+# fmt: off
+from hiddenfb.database.ETL.metrica.file_loader.tracking import \
+    MetricaTrackingLoader
+
+# fmt: on
 
 
 def test__metrica_tracking_loader__loads_valid_format():
