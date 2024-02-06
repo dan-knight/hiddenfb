@@ -16,3 +16,6 @@ classifiers = [
 [project.urls]
 Homepage = "https://github.com/dan-knight/hiddenfb"
 Issues = "https://github.com/dan-knight/hiddenfb/issues"
+
+[tool.isort]
+profile = "black"
