@@ -1,9 +1,10 @@
 from typing import Any, Mapping
+
 from marshmallow import fields, post_load
-from hiddenfb.schemas.data.wyscout.event.position import WyscoutEventPosition
 
 import hiddenfb.utility.schema.fields as custom_fields
 from hiddenfb.schemas.data.wyscout.event import WyscoutEvent
+from hiddenfb.schemas.data.wyscout.event.position import WyscoutEventPosition
 from hiddenfb.schemas.data.wyscout.event.tag import WyscoutEventTag
 from hiddenfb.utility.schema import GenericSchema
 
@@ -38,9 +39,13 @@ class WyscoutEventSchema(GenericSchema[WyscoutEvent]):
     event_time = fields.Float(required=True, data_key="eventSec")
     event_type_id = fields.Integer(required=True, data_key="eventId")
     event_type_name = custom_fields.NonEmptyString(required=True, data_key="eventName")
-    sub_event_id = custom_fields.NAInteger(metadata={"na_value": ""}, required=True, data_key="subEventId")
+    sub_event_id = custom_fields.NAInteger(
+        metadata={"na_value": ""}, required=True, data_key="subEventId"
+    )
     sub_event_name = custom_fields.EmptyString(required=True, data_key="subEventName")
-    tags = fields.Nested(WyscoutEventTagSchema(many=True), required=True, data_key="tags")
+    tags = fields.Nested(
+        WyscoutEventTagSchema(many=True), required=True, data_key="tags"
+    )
     positions = fields.Nested(WyscoutEventPositionSchema(many=True))
 
     @post_load

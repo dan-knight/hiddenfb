@@ -1,4 +1,5 @@
 from typing import Any, Mapping
+
 from marshmallow import fields, post_load
 
 import hiddenfb.utility.schema.fields as custom_fields

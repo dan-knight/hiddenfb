@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from typing import List
-from hiddenfb.schemas.data.wyscout.event.position import WyscoutEventPosition
 
+from hiddenfb.schemas.data.wyscout.event.position import WyscoutEventPosition
 from hiddenfb.schemas.data.wyscout.event.tag import WyscoutEventTag
 
 

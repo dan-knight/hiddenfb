@@ -1,10 +1,11 @@
 from typing import Any, Dict, Mapping
 
-from marshmallow import ValidationError, post_load
 import pytest
+from marshmallow import ValidationError, post_load
 
 from hiddenfb.utility.schema import GenericSchema
-from hiddenfb.utility.schema.fields import NAField, EmptyField, NA_VALUE as DEFAULT_NA_VALUE, NonEmptyString
+from hiddenfb.utility.schema.fields import NA_VALUE as DEFAULT_NA_VALUE
+from hiddenfb.utility.schema.fields import EmptyField, NAField, NonEmptyString
 
 CUSTOM_NA_VALUE: str = "NA"
 
@@ -74,7 +75,7 @@ def test__non_empty_string_field__does_not_allow_empty_string():
     value = {empty_key: ""}
 
     schema = EmptySchema()
-    
+
     with pytest.raises(ValidationError, match=empty_key):
         schema.load(value)
 

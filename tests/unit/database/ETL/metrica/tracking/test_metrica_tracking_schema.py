@@ -1,8 +1,8 @@
-
 from typing import Any, Dict
 
-from marshmallow import ValidationError
 import pytest
+from marshmallow import ValidationError
+
 from hiddenfb.schemas.data.metrica.tracking import MetricaTracking
 from hiddenfb.schemas.data.metrica.tracking.schema import MetricaTrackingSchema
 from hiddenfb.test.schemas.data.metrica.tracking import MetricaTrackingTestUtility

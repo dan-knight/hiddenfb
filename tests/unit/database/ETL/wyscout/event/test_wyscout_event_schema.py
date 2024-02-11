@@ -1,7 +1,8 @@
 from typing import Any, Dict
-from marshmallow import ValidationError
 
 import pytest
+from marshmallow import ValidationError
+
 from hiddenfb.schemas.data.wyscout.event import WyscoutEvent
 from hiddenfb.schemas.data.wyscout.event.schema import WyscoutEventSchema
 from hiddenfb.test.schemas.data.wyscout.event import WyscoutEventTestUtility

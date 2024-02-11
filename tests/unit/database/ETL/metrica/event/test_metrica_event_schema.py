@@ -1,8 +1,9 @@
 import re
 from typing import Any, Dict
-from marshmallow import ValidationError
 
 import pytest
+from marshmallow import ValidationError
+
 from hiddenfb.schemas.data.metrica.event import MetricaEvent
 from hiddenfb.schemas.data.metrica.event.schema import MetricaEventSchema
 from hiddenfb.test.schemas.data.metrica.event import MetricaEventTestUtility
@@ -193,7 +194,6 @@ def test__metrica_event_schema__player_to_is_optional():
     result: MetricaEvent = schema.load(json_event)
 
     assert result.player_to is None
-
 
 
 def test__metrica_event_schema__start_x_is_optional():

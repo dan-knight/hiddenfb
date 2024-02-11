@@ -27,16 +27,13 @@ class NAField(Field):
         )
 
 
-class NAString(NAField, String):
-    ...
+class NAString(NAField, String): ...
 
 
-class NAInteger(NAField, Integer):
-    ...
+class NAInteger(NAField, Integer): ...
 
 
-class NAFloat(NAField, Float):
-    ...
+class NAFloat(NAField, Float): ...
 
 
 class EmptyField(Field):
@@ -49,14 +46,13 @@ class EmptyField(Field):
     ):
         if value == "":
             return None
-        
+
         return super()._deserialize(  # pyright: ignore[reportUnknownMemberType]
             value, attr, data, **kwargs
         )
 
 
-class EmptyString(EmptyField, String):
-    ...
+class EmptyString(EmptyField, String): ...
 
 
 class NonEmptyField(Field):
@@ -69,10 +65,10 @@ class NonEmptyField(Field):
     ):
         if value == "":
             value = None
-        
+
         return super()._deserialize(  # pyright: ignore[reportUnknownMemberType]
             value, attr, data, **kwargs
         )
 
-class NonEmptyString(NonEmptyField, String):
-    ...
+
+class NonEmptyString(NonEmptyField, String): ...

@@ -1,9 +1,10 @@
 from typing import Any, Dict
-from marshmallow import ValidationError
 
 import pytest
-from hiddenfb.schemas.data.wyscout.event.schema import WyscoutEventPositionSchema
+from marshmallow import ValidationError
+
 from hiddenfb.schemas.data.wyscout.event.position import WyscoutEventPosition
+from hiddenfb.schemas.data.wyscout.event.schema import WyscoutEventPositionSchema
 from hiddenfb.test.schemas.data.wyscout.event import WyscoutEventTestUtility
 
 
@@ -19,7 +20,8 @@ def test__wyscout_event_position_schema__x_is_required():
 
     with pytest.raises(ValidationError, match=x_key):
         schema.load(json_position)
-    
+
+
 def test__wyscout_event_position_schema__y_is_required():
     event_utility = WyscoutEventTestUtility()
     position: WyscoutEventPosition = event_utility.create_event_position()
