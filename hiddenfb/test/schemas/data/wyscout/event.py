@@ -22,11 +22,11 @@ class WyscoutEventTestUtility(WyscoutTestUtility):
         positions: List[WyscoutEventPosition] | None = None
     ) -> WyscoutEvent:
         if tags is None:
-            tags = [WyscoutEventTag(tag_id=23)]
+            tags = [self.create_event_tag()]
         if positions is None:
             positions = [
-                WyscoutEventPosition(x=1, y=17),
-                WyscoutEventPosition(x=2, y=15)
+                self.create_event_position(x=i, y=i * 14)
+                for i in range(1, 3)
             ]
 
         return WyscoutEvent(
@@ -43,6 +43,12 @@ class WyscoutEventTestUtility(WyscoutTestUtility):
             tags=tags,
             positions=positions
         )
+
+    def create_event_tag(self, tag_id: int = 10) -> WyscoutEventTag:
+        return WyscoutEventTag(tag_id=tag_id)
+
+    def create_event_position(self, x: int = 10, y: int = 24) -> WyscoutEventPosition:
+        return WyscoutEventPosition(x=x, y=y)
 
     def to_json(self, event: WyscoutEvent) -> Dict[str, Any]:
         return {
