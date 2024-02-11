@@ -130,6 +130,20 @@ def test__wyscout_event_schema__event_type_id_is_required():
         schema.load(json_event)
 
 
+def test__wyscout_event_schema__event_name_does_not_allow_empty_string():
+    event_utility = WyscoutEventTestUtility()
+    event: WyscoutEvent = event_utility.create_event()
+
+    json_event: Dict[str, Any] = event_utility.to_json(event)
+    event_name_key: str = "eventName"
+    json_event[event_name_key] = ""
+
+    schema = WyscoutEventSchema()
+
+    with pytest.raises(ValidationError, match=event_name_key):
+        schema.load(json_event)
+
+
 def test__wyscout_event_schema__sub_event_id_allows_empty_string():
     event_utility = WyscoutEventTestUtility()
     event: WyscoutEvent = event_utility.create_event()

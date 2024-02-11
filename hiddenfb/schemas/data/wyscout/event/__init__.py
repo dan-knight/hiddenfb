@@ -14,6 +14,7 @@ class WyscoutEvent:
     period: str
     event_time: float
     event_type_id: int
+    event_type_name: str
     sub_event_id: int | None
     sub_event_name: str | None
     tags: List[WyscoutEventTag]
