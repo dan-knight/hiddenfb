@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Domain models for basic tracking and event data
 - Utilities to load data files
 - Utilities to validate Wyscout and Metrica event/tracking data
+- Generic repository base classes
 
 ## [0.0.1] - 2024-01-28
 
