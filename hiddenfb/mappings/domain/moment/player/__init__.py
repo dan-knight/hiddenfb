@@ -5,12 +5,16 @@ from hiddenfb.schemas.data.wyscout.event import WyscoutEvent
 
 
 class PlayerMomentMapper:
+    def __init__(
+        self,
+        player_mapper: PlayerMapper,
+        match_moment_mapper: MatchMomentMapper
+    ):
+        self._player_mapper: PlayerMapper = player_mapper
+        self._match_moment_mapper: MatchMomentMapper = match_moment_mapper
     def from_wyscout_event(self, event: WyscoutEvent):
-        player_mapper = PlayerMapper()
-        match_moment_mapper = MatchMomentMapper()
-
         return PlayerMoment(
-            player=player_mapper.from_wyscout_event(event),
-            match_moment=match_moment_mapper.from_wyscout_event(event),
+            player=self._player_mapper.from_wyscout_event(event),
+            match_moment=self._match_moment_mapper.from_wyscout_event(event),
             action=None
         )
