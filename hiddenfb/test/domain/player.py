@@ -12,7 +12,7 @@ class PlayerTestUtility:
         )
     
     def assert_equal(self, a: Player, b: Player) -> None:
-        assert self._to_test_dict(a) == self._to_test_dict(b)
+        assert self.to_test_dict(a) == self.to_test_dict(b)
     
-    def _to_test_dict(self, player: Player) -> Dict[str, Any]:
+    def to_test_dict(self, player: Player) -> Dict[str, Any]:
         return player.__dict__
