@@ -9,6 +9,5 @@ class MatchMomentMapper:
 
     def from_wyscout_event(self, event: WyscoutEvent) -> MatchMoment:
         return MatchMoment(
-            match=self._match_mapper.from_wyscout_event(event),
-            frame=event.event_time
+            match=self._match_mapper.from_wyscout_event(event), frame=event.event_time
         )

@@ -71,7 +71,7 @@ class WyscoutEventTestUtility(WyscoutTestUtility):
 
     def position_to_json(self, position: WyscoutEventPosition) -> Dict[str, Any]:
         return {"x": self._to_string(position.x), "y": self._to_string(position.y)}
-    
+
     def assert_equal(self, a: WyscoutEvent, b: WyscoutEvent) -> None:
         assert self.to_test_dict(a) == self.to_test_dict(b)
 

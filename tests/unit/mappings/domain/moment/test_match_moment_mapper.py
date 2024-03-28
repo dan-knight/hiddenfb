@@ -1,4 +1,5 @@
 from unittest.mock import MagicMock
+
 from hiddenfb.domain.match import Match
 from hiddenfb.domain.moment.match import MatchMoment
 from hiddenfb.mappings.domain.moment.match import MatchMomentMapper
@@ -17,8 +18,7 @@ def test__match_moment_mapper__creates_from_wyscout_event():
 
     event_utility = WyscoutEventTestUtility()
     event: WyscoutEvent = event_utility.create_event(
-        match_id=match.match_id,
-        event_time=match_moment.frame
+        match_id=match.match_id, event_time=match_moment.frame
     )
 
     mock_match_mapper = MagicMock()
@@ -28,6 +28,3 @@ def test__match_moment_mapper__creates_from_wyscout_event():
 
     result: MatchMoment = match_moment_mapper.from_wyscout_event(event)
     match_moment_utility.assert_equal(result, match_moment)
-
-
-
