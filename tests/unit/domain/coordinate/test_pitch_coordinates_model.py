@@ -1,6 +1,6 @@
 import pytest
-from hiddenfb.domain.coordinate.pitch import PitchCoordinates
 
+from hiddenfb.domain.coordinate.pitch import PitchCoordinates
 from hiddenfb.utility.exception.number import NegativeNumberError
 
 
