@@ -2,6 +2,6 @@ from dataclasses import dataclass
 
 
 @dataclass
-class Coordinate:
+class Coordinates:
     x: float
     y: float
