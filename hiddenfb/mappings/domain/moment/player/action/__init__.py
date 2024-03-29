@@ -3,7 +3,10 @@ from typing import Generator, List, Set
 from hiddenfb.domain.moment.player.action import PlayerAction
 from hiddenfb.domain.moment.player.action.shot import Shot, ShotResult
 from hiddenfb.schemas.data.metrica.event import MetricaEvent
-from hiddenfb.schemas.data.metrica.event.metadata import MISSED_SHOT_SUBTYPES, MetricaShotEventSubtype
+from hiddenfb.schemas.data.metrica.event.metadata import (
+    MISSED_SHOT_SUBTYPES,
+    MetricaShotEventSubtype,
+)
 from hiddenfb.schemas.data.wyscout.event import WyscoutEvent
 
 SHOT_EVENT_ID: int = 10

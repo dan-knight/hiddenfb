@@ -24,9 +24,11 @@ class MetricaShotEventSubtype(StrEnum):
     POST = "WOODWORK"
 
 
-MISSED_SHOT_SUBTYPES = frozenset((
-    MetricaShotEventSubtype.MISSED,
-    MetricaShotEventSubtype.BLOCKED,
-    MetricaShotEventSubtype.OFF_TARGET,
-    MetricaShotEventSubtype.POST
-))
+MISSED_SHOT_SUBTYPES = frozenset(
+    (
+        MetricaShotEventSubtype.MISSED,
+        MetricaShotEventSubtype.BLOCKED,
+        MetricaShotEventSubtype.OFF_TARGET,
+        MetricaShotEventSubtype.POST,
+    )
+)

@@ -9,7 +9,11 @@ from hiddenfb.mappings.domain.moment.player.action import (
     PlayerActionMapper,
 )
 from hiddenfb.schemas.data.metrica.event import MetricaEvent
-from hiddenfb.schemas.data.metrica.event.metadata import MISSED_SHOT_SUBTYPES, MetricaEventType, MetricaShotEventSubtype
+from hiddenfb.schemas.data.metrica.event.metadata import (
+    MISSED_SHOT_SUBTYPES,
+    MetricaEventType,
+    MetricaShotEventSubtype,
+)
 from hiddenfb.schemas.data.wyscout.event import WyscoutEvent
 from hiddenfb.schemas.data.wyscout.event.tag import WyscoutEventTag
 from hiddenfb.test.schemas.data.metrica.event import MetricaEventTestUtility
@@ -66,7 +70,9 @@ def test__player_action_mapper__creates_goal_from_metrica_event():
 
 
 @pytest.mark.parametrize("event_subtype", (MISSED_SHOT_SUBTYPES))
-def test__player_action_mapper__creates_missed_shot_from_metrica_event(event_subtype: MetricaShotEventSubtype):
+def test__player_action_mapper__creates_missed_shot_from_metrica_event(
+    event_subtype: MetricaShotEventSubtype,
+):
     event_utility = MetricaEventTestUtility()
     event: MetricaEvent = event_utility.create_event(
         event_type=MetricaEventType.SHOT, event_subtype=event_subtype
