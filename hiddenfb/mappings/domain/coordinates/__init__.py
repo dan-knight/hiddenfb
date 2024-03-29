@@ -9,7 +9,7 @@ class CoordinatesMapper:
             start_position: WyscoutEventPosition = event.positions[0]
         except IndexError:
             raise ValueError("No positions found in Wyscout event.")
-        
+
         return PitchCoordinates(
             x=start_position.x,
             y=start_position.y,

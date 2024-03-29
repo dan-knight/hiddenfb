@@ -12,7 +12,8 @@ def test__player_moment_mapper__creates_from_wyscout_event():
     player_moment: PlayerMoment[PlayerAction] = player_moment_utility.create_player_moment(
         player=MagicMock(),
         match_moment=MagicMock(),
-        player_action=MagicMock()
+        player_action=MagicMock(),
+        coordinates=MagicMock()
     )
 
     event_utility = WyscoutEventTestUtility()
@@ -27,10 +28,14 @@ def test__player_moment_mapper__creates_from_wyscout_event():
     mock_player_action_mapper = MagicMock()
     mock_player_action_mapper.from_wyscout_event.return_value = player_moment.action
 
+    mock_coordinate_mapper = MagicMock()
+    mock_coordinate_mapper.from_wyscout_event.return_value = player_moment.coordinates
+
     player_moment_mapper = PlayerMomentMapper(
         player_mapper=mock_player_mapper,
         match_moment_mapper=mock_match_moment_mapper,
-        player_action_mapper=mock_player_action_mapper
+        player_action_mapper=mock_player_action_mapper,
+        coordinate_mapper=mock_coordinate_mapper
     )
     result: PlayerMoment[PlayerAction] = player_moment_mapper.from_wyscout_event(event)
 

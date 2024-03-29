@@ -51,4 +51,9 @@ class PlayerMomentTestUtility:
         assert self.to_test_dict(a) == self.to_test_dict(b)
 
     def to_test_dict(self, x: PlayerMoment[PlayerAction]) -> Dict[str, Any]:
-        return x.__dict__
+        return {
+            "player": x.player,
+            "match_moment": x.match_moment,
+            "action": x.action,
+            "coordinates": x.coordinates
+        }
