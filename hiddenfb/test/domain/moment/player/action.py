@@ -3,7 +3,6 @@ from typing import Type, TypeVar
 from hiddenfb.domain.moment.player.action import PlayerAction
 from hiddenfb.domain.moment.player.action.shot import Shot, ShotResult
 
-
 ActionType = TypeVar("ActionType", bound=PlayerAction)
 
 

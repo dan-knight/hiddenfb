@@ -1,7 +1,7 @@
 from typing import Any, Dict
+
 from hiddenfb.domain.coordinate.pitch import PitchCoordinates
 from hiddenfb.domain.moment.match import MatchMoment
-
 from hiddenfb.domain.moment.player import PlayerMoment
 from hiddenfb.domain.moment.player.action import PlayerAction
 from hiddenfb.domain.player import Player
@@ -55,5 +55,5 @@ class PlayerMomentTestUtility:
             "player": x.player,
             "match_moment": x.match_moment,
             "action": x.action,
-            "coordinates": x.coordinates
+            "coordinates": x.coordinates,
         }
