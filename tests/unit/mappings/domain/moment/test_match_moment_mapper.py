@@ -31,24 +31,26 @@ def test__match_moment_mapper__creates_from_wyscout_event():
     result: MatchMoment = match_moment_mapper.from_wyscout_event(event)
     match_moment_utility.assert_equal(result, match_moment)
 
+
 def test__match_moment_mapper__creates_from_metrica_event():
     match_utility = MatchTestUtility()
     match_: Match = match_utility.create_match(match_id=123)
 
     frame: int = 104
     match_moment_utility = MatchMomentTestUtility(match_utility=match_utility)
-    match_moment: MatchMoment = match_moment_utility.create_match_moment(match=match_, frame=frame)
+    match_moment: MatchMoment = match_moment_utility.create_match_moment(
+        match=match_, frame=frame
+    )
 
     event_utility = MetricaEventTestUtility()
-    event: MetricaEvent = event_utility.create_event(
-        start_frame=frame
-    )
+    event: MetricaEvent = event_utility.create_event(start_frame=frame)
 
     mock_match_mapper = MagicMock()
     mock_match_mapper.from_metrica_event.return_value = match_moment.match
 
     match_moment_mapper = MatchMomentMapper(match_mapper=mock_match_mapper)
 
-    result: MatchMoment = match_moment_mapper.from_metrica_event(event, match_id=match_.match_id)
+    result: MatchMoment = match_moment_mapper.from_metrica_event(
+        event, match_id=match_.match_id
+    )
     match_moment_utility.assert_equal(result, match_moment)
-
