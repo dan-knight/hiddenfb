@@ -3,6 +3,7 @@ from typing import Generator, List, Set
 from hiddenfb.domain.moment.player.action import PlayerAction
 from hiddenfb.domain.moment.player.action.shot import Shot, ShotResult
 from hiddenfb.schemas.data.metrica.event import MetricaEvent
+from hiddenfb.schemas.data.metrica.event.metadata import MISSED_SHOT_SUBTYPES, MetricaShotEventSubtype
 from hiddenfb.schemas.data.wyscout.event import WyscoutEvent
 
 SHOT_EVENT_ID: int = 10
@@ -48,11 +49,13 @@ class PlayerActionMapper:
             raise ValueError("No shot subtype found.")
 
         shot_result: ShotResult
-        if "GOAL" in event.event_subtype:
+        if MetricaShotEventSubtype.GOAL in event.event_subtype:
             shot_result = ShotResult.GOAL
-        elif "ON TARGET" in event.event_subtype:
+        elif MetricaShotEventSubtype.SAVE in event.event_subtype:
             shot_result = ShotResult.SAVE
-        else:
+        elif event.event_subtype in MISSED_SHOT_SUBTYPES:
             shot_result = ShotResult.MISS
+        else:
+            raise ValueError(f'Invalid shot subtype "{event.event_subtype}"')
 
         return shot_result
