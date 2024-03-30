@@ -1,6 +1,6 @@
 from typing import FrozenSet
 
-from zmq import IntEnum
+from enum import IntEnum
 
 
 class WyscoutEventID(IntEnum):
