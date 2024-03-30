@@ -1,4 +1,4 @@
-from typing import Generator, List, Set
+from typing import Generator, Set
 
 from hiddenfb.domain.moment.player.action import PlayerAction
 from hiddenfb.domain.moment.player.action.shot import Shot, ShotResult
@@ -8,17 +8,20 @@ from hiddenfb.schemas.data.metrica.event.metadata import (
     MetricaShotEventSubtype,
 )
 from hiddenfb.schemas.data.wyscout.event import WyscoutEvent
-
-SHOT_EVENT_ID: int = 10
-GOAL_TAG = 100
-MISSED_SHOT_TAGS: List[int] = list(range(1210, 1223 + 1))
+from hiddenfb.schemas.data.wyscout.event.metadata import (
+    OFF_TARGET_SHOT_TAGS,
+    ON_TARGET_SHOT_TAGS,
+    POST_SHOT_TAGS,
+    WyscoutEventID,
+    WyscoutShotEventTag,
+)
 
 
 class PlayerActionMapper:
     def from_wyscout_event(self, event: WyscoutEvent) -> PlayerAction:
         tag_ids: Set[int] = set([tag.tag_id for tag in event.tags])
 
-        if event.event_id == SHOT_EVENT_ID:
+        if event.event_id == WyscoutEventID.SHOT:
             return Shot(result=self._parse_wyscout_shot_result(tag_ids))
         else:
             raise ValueError(f"Invalid event ID {event.event_id}.")
@@ -32,18 +35,24 @@ class PlayerActionMapper:
     def _parse_wyscout_shot_result(self, tags: Set[int]) -> ShotResult:
         shot_result: ShotResult
 
-        miss_tags: Set[int] = set(MISSED_SHOT_TAGS)
-
         def missed(event_tags: Set[int]) -> Generator[bool, None, None]:
             for tag in event_tags:
-                yield tag in miss_tags
+                yield tag in OFF_TARGET_SHOT_TAGS or tag in POST_SHOT_TAGS
 
-        if GOAL_TAG in tags:
+        def saved(event_tags: Set[int]) -> Generator[bool, None, None]:
+            for tag in event_tags:
+                yield tag in ON_TARGET_SHOT_TAGS
+
+        if WyscoutShotEventTag.GOAL in tags:
             shot_result = ShotResult.GOAL
         elif any(missed(tags)):
             shot_result = ShotResult.MISS
-        else:
+        elif any(saved(tags)):
             shot_result = ShotResult.SAVE
+        else:
+            raise ValueError(
+                f'Invalid shot tags ({", ".join([str(tag) for tag in tags])}).'
+            )
 
         return shot_result
 

@@ -2,12 +2,7 @@ import pytest
 
 from hiddenfb.domain.moment.player.action import PlayerAction
 from hiddenfb.domain.moment.player.action.shot import Shot, ShotResult
-from hiddenfb.mappings.domain.moment.player.action import (
-    GOAL_TAG,
-    MISSED_SHOT_TAGS,
-    SHOT_EVENT_ID,
-    PlayerActionMapper,
-)
+from hiddenfb.mappings.domain.moment.player.action import PlayerActionMapper
 from hiddenfb.schemas.data.metrica.event import MetricaEvent
 from hiddenfb.schemas.data.metrica.event.metadata import (
     MISSED_SHOT_SUBTYPES,
@@ -15,6 +10,13 @@ from hiddenfb.schemas.data.metrica.event.metadata import (
     MetricaShotEventSubtype,
 )
 from hiddenfb.schemas.data.wyscout.event import WyscoutEvent
+from hiddenfb.schemas.data.wyscout.event.metadata import (
+    OFF_TARGET_SHOT_TAGS,
+    ON_TARGET_SHOT_TAGS,
+    POST_SHOT_TAGS,
+    WyscoutEventID,
+    WyscoutShotEventTag,
+)
 from hiddenfb.schemas.data.wyscout.event.tag import WyscoutEventTag
 from hiddenfb.test.schemas.data.metrica.event import MetricaEventTestUtility
 from hiddenfb.test.schemas.data.wyscout.event import WyscoutEventTestUtility
@@ -23,7 +25,8 @@ from hiddenfb.test.schemas.data.wyscout.event import WyscoutEventTestUtility
 def test__player_action_mapper__creates_goal_from_wyscout_event():
     event_utility = WyscoutEventTestUtility()
     event: WyscoutEvent = event_utility.create_event(
-        event_id=SHOT_EVENT_ID, tags=[WyscoutEventTag(tag_id=GOAL_TAG)]
+        event_id=WyscoutEventID.SHOT,
+        tags=[WyscoutEventTag(tag_id=WyscoutShotEventTag.GOAL)],
     )
 
     player_action_mapper = PlayerActionMapper()
@@ -32,11 +35,11 @@ def test__player_action_mapper__creates_goal_from_wyscout_event():
     assert isinstance(result, Shot) and result.result is ShotResult.GOAL
 
 
-@pytest.mark.parametrize("tag_id", (MISSED_SHOT_TAGS))
+@pytest.mark.parametrize("tag_id", ([*OFF_TARGET_SHOT_TAGS, *POST_SHOT_TAGS]))
 def test__player_action_mapper__creates_missed_shot_from_wyscout_event(tag_id: int):
     event_utility = WyscoutEventTestUtility()
     event: WyscoutEvent = event_utility.create_event(
-        event_id=SHOT_EVENT_ID, tags=[WyscoutEventTag(tag_id=tag_id)]
+        event_id=WyscoutEventID.SHOT, tags=[WyscoutEventTag(tag_id=tag_id)]
     )
 
     player_action_mapper = PlayerActionMapper()
@@ -45,10 +48,11 @@ def test__player_action_mapper__creates_missed_shot_from_wyscout_event(tag_id: i
     assert isinstance(result, Shot) and result.result is ShotResult.MISS
 
 
-def test__player_action_mapper__creates_saved_shot_from_wyscout_event():
+@pytest.mark.parametrize("tag_id", (ON_TARGET_SHOT_TAGS))
+def test__player_action_mapper__creates_saved_shot_from_wyscout_event(tag_id: int):
     event_utility = WyscoutEventTestUtility()
     event: WyscoutEvent = event_utility.create_event(
-        event_id=SHOT_EVENT_ID,
+        event_id=WyscoutEventID.SHOT, tags=[WyscoutEventTag(tag_id=tag_id)]
     )
 
     player_action_mapper = PlayerActionMapper()
