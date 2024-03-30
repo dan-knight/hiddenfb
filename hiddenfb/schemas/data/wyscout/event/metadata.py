@@ -1,6 +1,5 @@
-from typing import FrozenSet
-
 from enum import IntEnum
+from typing import FrozenSet
 
 
 class WyscoutEventID(IntEnum):
