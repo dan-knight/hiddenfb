@@ -4,4 +4,4 @@ class Match:
 
     @property
     def match_id(self) -> int:
-        return self.match_id
+        return self._match_id

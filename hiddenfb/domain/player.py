@@ -4,4 +4,4 @@ class Player:
 
     @property
     def player_id(self) -> int:
-        return self.player_id
+        return self._player_id
