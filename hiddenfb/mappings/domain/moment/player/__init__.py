@@ -4,6 +4,7 @@ from hiddenfb.mappings.domain.coordinates import CoordinatesMapper
 from hiddenfb.mappings.domain.moment.match import MatchMomentMapper
 from hiddenfb.mappings.domain.moment.player.action import PlayerActionMapper
 from hiddenfb.mappings.domain.player import PlayerMapper
+from hiddenfb.schemas.data.metrica.event import MetricaEvent
 from hiddenfb.schemas.data.wyscout.event import WyscoutEvent
 
 
@@ -26,4 +27,14 @@ class PlayerMomentMapper:
             match_moment=self._match_moment_mapper.from_wyscout_event(event),
             action=self._player_action_mapper.from_wyscout_event(event),
             coordinates=self._coordinate_mapper.from_wyscout_event(event),
+        )
+
+    def from_metrica_event(self, event: MetricaEvent, match_id: int):
+        return PlayerMoment[PlayerAction](
+            player=self._player_mapper.from_metrica_event(event),
+            match_moment=self._match_moment_mapper.from_metrica_event(
+                event, match_id=match_id
+            ),
+            action=self._player_action_mapper.from_metrica_event(event),
+            coordinates=self._coordinate_mapper.from_metrica_event(event),
         )
