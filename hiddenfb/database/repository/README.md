@@ -39,6 +39,18 @@ class AggregateFileRepository(FileRepository, ABC):
 
 ### Filters
 
+Separate `Filter` classes should be used to define the criteria which users use to access specific subsets of data. This serves to reduce the number of functions required for each repository class while leaving filtering requirements open to extension as the domain layer evolves. These filters should be defined in the domain layer, ensuring that persistence concerns do not leak into other layers. Further, the domain models will be accessed using language and concepts from the domain (rather than the persistence layer). 
+
+```
+class ModelFilter(Filter):
+    def name(self, name: str) -> List[Model]:
+        self._name = name
+
+class ModelRepository(ABC):
+    @abstractmethod
+    def get_all(self, filters: ModelFilter | None = None) -> List[Model]:
+        ...
+```
 
 ## Testing
 
