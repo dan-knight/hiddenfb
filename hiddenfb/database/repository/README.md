@@ -44,7 +44,4 @@ class AggregateFileRepository(FileRepository, ABC):
 
 ## Usage
 
-
-
-### Dependency Injection
-
+For anything beyond the simplest, single step use cases, repository instances should be injected using an Inversion of Control container. This ensures that entities are cached consistently within each session, and efficiently across multiple concurrent sessions.
