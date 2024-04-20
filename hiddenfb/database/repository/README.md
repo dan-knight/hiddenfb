@@ -37,6 +37,13 @@ class AggregateFileRepository(FileRepository, ABC):
 
 ### Entity Caching
 
+Identity is a central concept of entities. The characteristics of an entity may change, but (unlike value objects) these changes do not change an entity into a fundamentally different entity. Persistence plays a large part in ensuring this consistency, but measures must also be taken within the application.
+
+Specifically, only _one_ instance of an entity should exist in a transaction (no reinstantiation). Any services which use an entity should be passed the _same_ instance. Consider a situation where an entity is modified in some way. Any other code within the same transaction should be aware of these changes, ensuring that code is always working with the most current state. Furthermore, if multiple instances existed at the same time, each instance may be changed in _different_ ways, resulting in not just an out-of-date object, but a completely invalid state which was never intended.
+
+#### Implementing Entity Caching
+
+
 ### Filters
 
 Separate `Filter` classes should be used to define the criteria which users use to access specific subsets of data. This serves to reduce the number of functions required for each repository class while leaving filtering requirements open to extension as the domain layer evolves. These filters should be defined in the domain layer, ensuring that persistence concerns do not leak into other layers. Further, the domain models will be accessed using language and concepts from the domain (rather than the persistence layer). 
