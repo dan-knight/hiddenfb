@@ -43,6 +43,11 @@ Specifically, only _one_ instance of an entity should exist in a transaction (no
 
 #### Implementing Entity Caching
 
+Because of the wide range of use-cases that repositories must cover, it is very difficult to enforce or automate entity caching through code. Therefore, it is up to the developer to ensure that model requirements are documented properly, and that all repository implementations are thoroughly tested for consistency with regard to entity instances.
+
+Concrete repositories for entities should make use of the `EntityCache` class to handle model instances by subclassing `EntityCache` and implementing the `_get_primary_key()` method. It's worth noting that this logic is specific to entity caching in the persistence layer, and therefore does not need to be generalized or defined in a more central location - alongside the entity cache is fine. 
+
+For models with complex primary keys, it is valid to define a `PrimaryKey` class for the cache to use. This key should only use primitive types (no domain models) so that other layers can also interact with the class. For example, it's vital to be able to use information in a database ORM object to access cached domain models.
 
 ### Filters
 
