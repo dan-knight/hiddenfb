@@ -51,18 +51,38 @@ For models with complex primary keys, it is valid to define a `PrimaryKey` class
 
 ### Filters
 
-Separate `Filter` classes should be used to define the criteria which users use to access specific subsets of data. This serves to reduce the number of functions required for each repository class while leaving filtering requirements open to extension as the domain layer evolves. These filters should be defined in the domain layer, ensuring that persistence concerns do not leak into other layers. Further, the domain models will be accessed using language and concepts from the domain (rather than the persistence layer). 
+Separate `Filter` classes should be used to define the criteria which users use to access specific subsets of data. This serves to reduce the number of functions required for each repository class while leaving filtering requirements open to extension as the domain layer evolves. These filters should be defined in the database layer, but using language from the domain layer. This will ensure that the domain models are accessed using language and concepts from the domain rather than the persistence layer.
 
 ```
-class ModelFilter(Filter):
-    def name(self, name: str) -> List[Model]:
-        self._name = name
-
 class ModelRepository(ABC):
     @abstractmethod
     def get_all(self, filters: ModelFilter | None = None) -> List[Model]:
         ...
 ```
+
+#### Filter Implementation
+
+Filters should be implemented using the Builder pattern to allow users the flexibility needed to handle the wide range of data access requirements. A concrete Filter should define filter criteria as private class attributes. Each criteria will use a set to store values in the query, with a public method to add values to the underlying set. This set implementation allows `None` to be a valid filter criteria for optional attributes, while multiple calls to the same filter method will just add values to the set. The values for each criteria will treated as part of an "or" operation.
+
+```
+class ModelFilter(Filter):
+    def __init__(self):
+        self._names: set[str] = set()
+        self._categories: set[str] = set()
+
+    def name(self, names: list[str]) -> ModelFilter:
+        self._names.update(names)
+        return self
+    
+    def category(self, categories: list[str]) -> ModelFilter:
+        self._categories.update(categories)
+        return self
+
+
+filters = ModelFilter().name(["test"]).category(["thing"])
+```
+
+It is difficult to enforce integration of Filters in Repository code. It is up to the developers to update Repositories when Filters change. This is a realistic expectation, since extensions to Filter implementation will be driven by larger changes to data access requirements.
 
 ## Testing
 
