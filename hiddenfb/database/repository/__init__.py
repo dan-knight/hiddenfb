@@ -1,8 +1,7 @@
 from hiddenfb.utility.file_loader import FileLoader
 
 
-class Repository:
-    ...
+class Repository: ...
 
 
 class FileRepository:
